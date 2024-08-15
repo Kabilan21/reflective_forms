@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reflective_forms/form/app_form_group.dart';
 
-class FormErrorWidget extends StatefulWidget {
+class FormErrorText extends StatefulWidget {
   final EdgeInsets? margin;
-  const FormErrorWidget({
+  const FormErrorText({
     super.key,
     this.margin,
   });
 
   @override
-  State<FormErrorWidget> createState() => _FormErrorWidgetState();
+  State<FormErrorText> createState() => _FormErrorTextState();
 }
 
-class _FormErrorWidgetState extends State<FormErrorWidget> {
+class _FormErrorTextState extends State<FormErrorText> {
   late AppFormGroup form;
 
   @override
@@ -28,18 +28,16 @@ class _FormErrorWidgetState extends State<FormErrorWidget> {
       stream: form.errorStream,
       builder: (context, snapshot) {
         return Visibility(
-          visible: snapshot.hasData && snapshot.data!.isNotEmpty,
+          visible: snapshot.hasData,
           replacement: const SizedBox.shrink(),
           child: Container(
             alignment: Alignment.centerLeft,
-            margin: widget.margin ?? const EdgeInsets.only(top: 8, left: 8, right: 8),
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
+              color: const Color.fromARGB(255, 228, 199, 199),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
-              snapshot.data!,
+              snapshot.data ?? "",
               style: const TextStyle(color: Colors.redAccent),
             ),
           ),
