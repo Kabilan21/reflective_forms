@@ -30,9 +30,12 @@ class _FormErrorTextState extends State<FormErrorText> {
         return Visibility(
           visible: snapshot.hasData,
           replacement: const SizedBox.shrink(),
-          child: Text(
-            snapshot.data ?? "",
-            style: const TextStyle(color: Colors.redAccent),
+          child: Padding(
+            padding: widget.margin ?? EdgeInsets.zero,
+            child: Text(
+              snapshot.data ?? "",
+              style: const TextStyle(color: Colors.redAccent),
+            ),
           ),
         );
       },
