@@ -28,7 +28,7 @@ class _FormErrorTextState extends State<FormErrorText> {
       stream: form.errorStream,
       builder: (context, snapshot) {
         return Visibility(
-          visible: snapshot.hasData,
+          visible: snapshot.hasData && snapshot.data != "",
           replacement: const SizedBox.shrink(),
           child: Padding(
             padding: widget.margin ?? EdgeInsets.zero,
