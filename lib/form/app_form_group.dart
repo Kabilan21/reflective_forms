@@ -17,8 +17,13 @@ class AppFormGroup extends FormGroup {
     return {};
   }
 
-  final _errorListener = StreamController<String>();
-  Stream<String> get errorStream => _errorListener.stream;
+  final StreamController<String> _controller = StreamController.broadcast();
+
+  Stream<String> get errorStream => _controller.stream;
+
+  void pushError(String message) {
+    _controller.add(message);
+  }
 
   bool isRequired(String field) => true;
   bool has(String field) => contains(field);
@@ -86,7 +91,7 @@ class AppFormGroup extends FormGroup {
 
   bool isValid() {
     final error = formErrorMessage();
-    _errorListener.sink.add(error ?? "");
+    pushError(error ?? "");
     return error == null;
   }
 
@@ -113,7 +118,7 @@ class AppFormGroup extends FormGroup {
 
   @override
   void dispose() {
-    _errorListener.close();
+    _controller.close();
     super.dispose();
   }
 }
